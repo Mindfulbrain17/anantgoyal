@@ -30,10 +30,10 @@ export default function Article() {
           <Button
             variant="ghost"
             className="mb-8 -ml-2"
-            onClick={() => navigate(-1)}
+            onClick={() => navigate("/")}
           >
             <ChevronLeft className="mr-2 h-4 w-4" />
-            Back
+            Back to Home
           </Button>
           <article className="prose prose-lg dark:prose-invert mx-auto max-w-[750px] font-serif">
             <div className="space-y-2 mb-8">

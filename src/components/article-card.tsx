@@ -17,14 +17,16 @@ export function ArticleCard({ title, description, category, readTime }: ArticleC
 
   return (
     <Card className="glass card-hover">
-      <CardHeader className="space-y-1">
+      <CardHeader className="space-y-4">
         <div className="flex items-center justify-between">
-          <Badge variant="secondary" className="text-xs">
+          <Badge variant="secondary" className="text-xs px-3 py-1 rounded-full">
             {category}
           </Badge>
           <span className="text-xs text-muted-foreground">{readTime}</span>
         </div>
-        <h3 className="text-xl font-medium leading-none tracking-tight">{title}</h3>
+        <h3 className="text-2xl font-medium leading-tight tracking-tight mt-2">
+          {title}
+        </h3>
       </CardHeader>
       <CardContent>
         <p className="text-sm text-muted-foreground">{description}</p>
