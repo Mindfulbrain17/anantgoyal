@@ -15,7 +15,13 @@ export default function Article() {
   )
 
   if (!article) {
-    return navigate("/")
+    // Instead of returning the navigate function result, render a redirect effect
+    React.useEffect(() => {
+      navigate("/")
+    }, [navigate])
+
+    // Return loading state while redirecting
+    return null
   }
 
   return (
