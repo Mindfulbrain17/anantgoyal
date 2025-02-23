@@ -2,16 +2,23 @@
 import { Moon, Sun } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useTheme } from "@/components/theme-provider"
-
-const CATEGORIES = [
-  "Life Philosophy",
-  "Personal Growth",
-  "Mindfulness",
-  "Technology",
-]
+import { CATEGORIES } from "@/lib/constants"
+import { useSearchParams } from "react-router-dom"
 
 export function SiteHeader() {
   const { theme, setTheme } = useTheme()
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  const handleCategoryClick = (category: string) => {
+    if (searchParams.get("category") === category) {
+      searchParams.delete("category")
+    } else {
+      searchParams.set("category", category)
+    }
+    setSearchParams(searchParams)
+  }
+
+  const activeCategory = searchParams.get("category")
 
   return (
     <header className="sticky top-0 z-50 w-full glass">
@@ -22,13 +29,17 @@ export function SiteHeader() {
           </a>
           <nav className="hidden md:flex gap-6">
             {CATEGORIES.map((category) => (
-              <a
+              <button
                 key={category}
-                href={`#${category.toLowerCase().replace(" ", "-")}`}
-                className="text-sm font-medium hover:text-primary/80 transition-colors"
+                onClick={() => handleCategoryClick(category)}
+                className={`text-sm font-medium transition-colors ${
+                  activeCategory === category
+                    ? "text-primary"
+                    : "text-muted-foreground hover:text-primary/80"
+                }`}
               >
                 {category}
-              </a>
+              </button>
             ))}
           </nav>
         </div>

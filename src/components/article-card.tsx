@@ -2,6 +2,7 @@
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { useNavigate } from "react-router-dom"
 
 interface ArticleCardProps {
   title: string
@@ -11,6 +12,9 @@ interface ArticleCardProps {
 }
 
 export function ArticleCard({ title, description, category, readTime }: ArticleCardProps) {
+  const navigate = useNavigate()
+  const slug = title.toLowerCase().replace(/\s+/g, "-")
+
   return (
     <Card className="glass card-hover">
       <CardHeader className="space-y-1">
@@ -26,7 +30,11 @@ export function ArticleCard({ title, description, category, readTime }: ArticleC
         <p className="text-sm text-muted-foreground">{description}</p>
       </CardContent>
       <CardFooter>
-        <Button variant="ghost" className="w-full">
+        <Button 
+          variant="ghost" 
+          className="w-full"
+          onClick={() => navigate(`/article/${slug}`)}
+        >
           Read More
         </Button>
       </CardFooter>

@@ -3,47 +3,17 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { ArticleCard } from "@/components/article-card"
-
-const ARTICLES = [
-  {
-    title: "The Art of Letting Go",
-    description: "Explore the liberating practice of releasing attachments and finding peace in impermanence.",
-    category: "Life Philosophy",
-    readTime: "5 min read",
-  },
-  {
-    title: "Finding Meaning in Simplicity",
-    description: "Discover how minimalism can lead to a more fulfilled and purposeful life.",
-    category: "Personal Growth",
-    readTime: "7 min read",
-  },
-  {
-    title: "Embracing Uncertainty",
-    description: "Learn to find comfort and growth in life's unpredictable moments.",
-    category: "Mindfulness",
-    readTime: "6 min read",
-  },
-  {
-    title: "The Power of Now",
-    description: "Understanding the importance of present moment awareness in daily life.",
-    category: "Mindfulness",
-    readTime: "4 min read",
-  },
-  {
-    title: "Digital Minimalism",
-    description: "How to maintain focus and productivity in an age of constant connectivity.",
-    category: "Technology",
-    readTime: "8 min read",
-  },
-  {
-    title: "The Journey Within",
-    description: "Exploring the path of self-discovery and inner transformation.",
-    category: "Personal Growth",
-    readTime: "6 min read",
-  },
-]
+import { ARTICLES } from "@/lib/constants"
+import { useSearchParams } from "react-router-dom"
 
 const Index = () => {
+  const [searchParams] = useSearchParams()
+  const activeCategory = searchParams.get("category")
+
+  const filteredArticles = activeCategory
+    ? ARTICLES.filter((article) => article.category === activeCategory)
+    : ARTICLES
+
   return (
     <ThemeProvider defaultTheme="system" storageKey="blog-theme">
       <div className="min-h-screen flex flex-col">
@@ -60,7 +30,7 @@ const Index = () => {
               </p>
             </div>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {ARTICLES.map((article) => (
+              {filteredArticles.map((article) => (
                 <ArticleCard key={article.title} {...article} />
               ))}
             </div>
